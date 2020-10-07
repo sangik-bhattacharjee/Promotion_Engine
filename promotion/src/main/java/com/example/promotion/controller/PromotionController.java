@@ -3,7 +3,11 @@ package com.example.promotion.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +20,7 @@ import com.example.promotion.service.PromotionService;
 
 
 @RestController
+@Path("/promotions")
 public class PromotionController {
 	
 	@Autowired
@@ -24,10 +29,10 @@ public class PromotionController {
 	private List<SKU> skudetails = new ArrayList<>();
 	
 	@GetMapping("/findPrice")
-	public ResponseDetail fetchFinalPrice(@QueryParam("skuA") int quantityofA,
-			@QueryParam("skuB") int quantityofB,
-			@QueryParam("skuC") int quantityofC,
-			@QueryParam("skuD") int quantityofD) {
+	public ResponseBuilder fetchFinalPrice(@DefaultValue("0") @QueryParam("skuA") int quantityofA,
+			@DefaultValue("0") @QueryParam("skuB") int quantityofB,
+			@DefaultValue("0") @QueryParam("skuC") int quantityofC,
+			@DefaultValue("0") @QueryParam("skuD") int quantityofD) {
 		
 		RequestDetail request = new RequestDetail();
 		
@@ -58,7 +63,7 @@ public class PromotionController {
 		request.setSKUDetails(skudetails);
 		ResponseDetail response=promotionService.fetchFinalPriceOfProducts(request);
 		
-		return response;
+		return Response.status(200).entity(response);
 	}
 
 }
