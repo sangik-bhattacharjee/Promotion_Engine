@@ -1,6 +1,7 @@
 package com.example.promotion.service;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.example.promotion.helper.RequestDetail;
 import com.example.promotion.helper.ResponseDetail;

@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.promotion.helper.RequestDetail;
@@ -20,8 +23,13 @@ import com.example.promotion.service.PromotionService;
 
 
 @RestController
-@Path("/promotions")
+@ComponentScan({"com.example.promotion.service"})
 public class PromotionController {
+	
+	@GetMapping("/welcome")
+	public String welcomepage() {
+		return "Welcome to Yawin Tutor";
+	}
 	
 	@Autowired
 	private PromotionService promotionService;
@@ -29,11 +37,13 @@ public class PromotionController {
 	private List<SKU> skudetails = new ArrayList<>();
 	
 	@GetMapping("/findPrice")
-	public ResponseBuilder fetchFinalPrice(@DefaultValue("0") @QueryParam("skuA") int quantityofA,
+	public ResponseBuilder fetchFinalPrice(
+			@DefaultValue("0") @QueryParam("skuA") int quantityofA,
 			@DefaultValue("0") @QueryParam("skuB") int quantityofB,
 			@DefaultValue("0") @QueryParam("skuC") int quantityofC,
 			@DefaultValue("0") @QueryParam("skuD") int quantityofD) {
 		
+		System.out.println("Values of A :: "+quantityofA+", values of B :: "+quantityofB+", values of C ::: "+quantityofC+", values of D :: "+quantityofD);
 		RequestDetail request = new RequestDetail();
 		
 		if(quantityofA>0) {
