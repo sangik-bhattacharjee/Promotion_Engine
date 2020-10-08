@@ -36,8 +36,6 @@ public class PromotionController {
 	@Autowired
 	private PromotionService promotionService;
 	
-	private List<SKU> skudetails = new ArrayList<>();
-	
 	@GetMapping("/findPrice")
 	@ResponseBody
 	public ResponseDetail fetchFinalPrice(
@@ -46,10 +44,13 @@ public class PromotionController {
 			@RequestParam(name="skuC", defaultValue = "0") int quantityofC,
 			@RequestParam(name="skuD", defaultValue = "0") int quantityofD) {
 		ResponseDetail response=null;
+		List<SKU> skudetails = null;
+		
 		try {
 			
 			System.out.println("Values of A :: "+quantityofA+", values of B :: "+quantityofB+", values of C ::: "+quantityofC+", values of D :: "+quantityofD);
 			RequestDetail request = new RequestDetail();
+			skudetails=new ArrayList<>();
 			
 			if(quantityofA>0) {
 				SKU skuA=new SKU();
