@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.promotion.helper.RequestDetail;
@@ -37,43 +39,51 @@ public class PromotionController {
 	private List<SKU> skudetails = new ArrayList<>();
 	
 	@GetMapping("/findPrice")
-	public ResponseBuilder fetchFinalPrice(
-			@DefaultValue("0") @QueryParam("skuA") int quantityofA,
-			@DefaultValue("0") @QueryParam("skuB") int quantityofB,
-			@DefaultValue("0") @QueryParam("skuC") int quantityofC,
-			@DefaultValue("0") @QueryParam("skuD") int quantityofD) {
-		
-		System.out.println("Values of A :: "+quantityofA+", values of B :: "+quantityofB+", values of C ::: "+quantityofC+", values of D :: "+quantityofD);
-		RequestDetail request = new RequestDetail();
-		
-		if(quantityofA>0) {
-			SKU skuA=new SKU();
-			skuA.setSKU_Id("A");
-			skuA.setSKU_Unit(quantityofA);
-			skudetails.add(skuA);
+	@ResponseBody
+	public ResponseDetail fetchFinalPrice(
+			@RequestParam(name="skuA", defaultValue = "0") int quantityofA,
+			@RequestParam(name="skuB", defaultValue = "0") int quantityofB,
+			@RequestParam(name="skuC", defaultValue = "0") int quantityofC,
+			@RequestParam(name="skuD", defaultValue = "0") int quantityofD) {
+		ResponseDetail response=null;
+		try {
+			
+			System.out.println("Values of A :: "+quantityofA+", values of B :: "+quantityofB+", values of C ::: "+quantityofC+", values of D :: "+quantityofD);
+			RequestDetail request = new RequestDetail();
+			
+			if(quantityofA>0) {
+				SKU skuA=new SKU();
+				skuA.setSKU_Id("A");
+				skuA.setSKU_Unit(quantityofA);
+				skudetails.add(skuA);
+			}
+			if(quantityofB>0) {
+				SKU skuB=new SKU();
+				skuB.setSKU_Id("B");
+				skuB.setSKU_Unit(quantityofB);
+				skudetails.add(skuB);
+			}
+			if(quantityofC>0) {
+				SKU skuC=new SKU();
+				skuC.setSKU_Id("C");
+				skuC.setSKU_Unit(quantityofC);
+				skudetails.add(skuC);
+			}
+			if(quantityofD>0) {
+				SKU skuD=new SKU();
+				skuD.setSKU_Id("D");
+				skuD.setSKU_Unit(quantityofD);
+				skudetails.add(skuD);
+			}
+			request.setSKUDetails(skudetails);
+			response=promotionService.fetchFinalPriceOfProducts(request);
+			
+			
 		}
-		if(quantityofB>0) {
-			SKU skuB=new SKU();
-			skuB.setSKU_Id("B");
-			skuB.setSKU_Unit(quantityofB);
-			skudetails.add(skuB);
+		catch(Exception e) {
+			e.printStackTrace();
 		}
-		if(quantityofC>0) {
-			SKU skuC=new SKU();
-			skuC.setSKU_Id("B");
-			skuC.setSKU_Unit(quantityofC);
-			skudetails.add(skuC);
-		}
-		if(quantityofD>0) {
-			SKU skuD=new SKU();
-			skuD.setSKU_Id("B");
-			skuD.setSKU_Unit(quantityofD);
-			skudetails.add(skuD);
-		}
-		request.setSKUDetails(skudetails);
-		ResponseDetail response=promotionService.fetchFinalPriceOfProducts(request);
-		
-		return Response.status(200).entity(response);
+		return response;
 	}
 
 }

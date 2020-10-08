@@ -11,6 +11,7 @@ public class PromotionService {
 	
 	public ResponseDetail fetchFinalPriceOfProducts(RequestDetail requestDetail) {
 		ResponseDetail response = new ResponseDetail();
+		int finalAmount=0;
 		int totalamount=0;
 		int activePromotions_3A=130;
 		int activePromotions_2B=45;
@@ -22,18 +23,19 @@ public class PromotionService {
 		
 		int quantityofC=0;
 		int quantityofD=0;
-		
+		System.out.println("Total Amount :: "+totalamount);
 		if(requestDetail!=null) {
 			if(requestDetail.getSKUDetails()!=null && requestDetail.getSKUDetails().size()>0) {
+				System.out.println("Sku Detail Size ::: "+requestDetail.getSKUDetails().size());
 				for(int i=0; i<requestDetail.getSKUDetails().size(); i++) {
 					
 					if(requestDetail.getSKUDetails().get(i).getSKU_Id().equalsIgnoreCase("A")) {
 						
 						if(requestDetail.getSKUDetails().get(i).getSKU_Unit()>0) {
-							if(requestDetail.getSKUDetails().get(i).getSKU_Unit()/3==0) {
+							if(requestDetail.getSKUDetails().get(i).getSKU_Unit()/3>0) {
 								totalamount=totalamount+(activePromotions_3A*(requestDetail.getSKUDetails().get(i).getSKU_Unit()/3));
 							}
-							if(requestDetail.getSKUDetails().get(i).getSKU_Unit()/3!=0) {
+							if(requestDetail.getSKUDetails().get(i).getSKU_Unit()%3!=0) {
 								totalamount=totalamount+(unitPriceofA*(requestDetail.getSKUDetails().get(i).getSKU_Unit()%3));
 							}
 						}
@@ -44,10 +46,10 @@ public class PromotionService {
 					else if(requestDetail.getSKUDetails().get(i).getSKU_Id().equalsIgnoreCase("B")) {
 						
 						if(requestDetail.getSKUDetails().get(i).getSKU_Unit()>0) {
-							if(requestDetail.getSKUDetails().get(i).getSKU_Unit()/2==0) {
+							if(requestDetail.getSKUDetails().get(i).getSKU_Unit()/2>0) {
 								totalamount=totalamount+(activePromotions_2B*(requestDetail.getSKUDetails().get(i).getSKU_Unit()/2));
 							}
-							if(requestDetail.getSKUDetails().get(i).getSKU_Unit()/2!=0) {
+							if(requestDetail.getSKUDetails().get(i).getSKU_Unit()%2!=0) {
 								totalamount=totalamount+(unitPriceofB*(requestDetail.getSKUDetails().get(i).getSKU_Unit()%2));
 							}
 						}
@@ -78,15 +80,16 @@ public class PromotionService {
 					}
 				}
 				else if(quantityofC>0 && quantityofD==0) {
-					totalamount=totalamount+(quantityofC*quantityofC);
+					totalamount=totalamount+(quantityofC*uniPriceofC);
 					
 				}
 				else if (quantityofC==0 && quantityofD>0) {
-					totalamount=totalamount+(quantityofD*quantityofD);
+					totalamount=totalamount+(quantityofD*unitPriceofD);
 				}
 			}
 		}
-		response.setTotalAmount(totalamount);
+		finalAmount=totalamount;
+		response.setTotalAmount(finalAmount);
 		return response;
 	}
 
