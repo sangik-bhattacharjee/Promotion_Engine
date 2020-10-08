@@ -23,10 +23,8 @@ public class PromotionService {
 		
 		int quantityofC=0;
 		int quantityofD=0;
-		System.out.println("Total Amount :: "+totalamount);
 		if(requestDetail!=null) {
 			if(requestDetail.getSKUDetails()!=null && requestDetail.getSKUDetails().size()>0) {
-				System.out.println("Sku Detail Size ::: "+requestDetail.getSKUDetails().size());
 				for(int i=0; i<requestDetail.getSKUDetails().size(); i++) {
 					
 					if(requestDetail.getSKUDetails().get(i).getSKU_Id().equalsIgnoreCase("A")) {
