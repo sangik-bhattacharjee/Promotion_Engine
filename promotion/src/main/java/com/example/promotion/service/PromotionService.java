@@ -1,7 +1,6 @@
 package com.example.promotion.service;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import com.example.promotion.helper.RequestDetail;
 import com.example.promotion.helper.ResponseDetail;
@@ -13,6 +12,7 @@ public class PromotionService {
 		ResponseDetail response = new ResponseDetail();
 		int finalAmount=0;
 		int totalamount=0;
+		
 		int activePromotions_3A=130;
 		int activePromotions_2B=45;
 		int activePromotions_CD=30;

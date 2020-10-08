@@ -1,5 +1,7 @@
 package com.example.promotion;
 
+import java.util.Optional;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -23,14 +25,24 @@ class PromotionMachineApplicationTests {
 
 	@Test
 	void fetchFinalPriceTest_One() {
-		ResponseDetail response=promotionController.fetchFinalPrice(1, 1, 1, 0);
+		Optional<Integer> sku_A = Optional.of(1);
+		Optional<Integer> sku_B = Optional.of(1);
+		Optional<Integer> sku_C = Optional.of(1);
+		Optional<Integer> sku_D = Optional.of(0);
+		
+		ResponseDetail response=promotionController.fetchFinalPrice(sku_A, sku_B, sku_C, sku_D);
 		Assert.assertEquals(response.getTotalAmount(), 100);
 		
 	}
 	
 	@Test
 	void fetchFinalPriceTest_Two() {
-		ResponseDetail response=promotionController.fetchFinalPrice(1, 1, 1, 1);
+		Optional<Integer> sku_A = Optional.of(1);
+		Optional<Integer> sku_B = Optional.of(1);
+		Optional<Integer> sku_C = Optional.of(1);
+		Optional<Integer> sku_D = Optional.of(1);
+		
+		ResponseDetail response=promotionController.fetchFinalPrice(sku_A, sku_B, sku_C, sku_D);
 		System.out.println(response.getTotalAmount());
 		Assert.assertEquals(response.getTotalAmount(), 110);
 		
@@ -38,21 +50,37 @@ class PromotionMachineApplicationTests {
 	
 	@Test
 	void fetchFinalPriceTest_Three() {
-		ResponseDetail response=promotionController.fetchFinalPrice(5, 5, 1, 0);
+		Optional<Integer> sku_A = Optional.of(5);
+		Optional<Integer> sku_B = Optional.of(5);
+		Optional<Integer> sku_C = Optional.of(1);
+		Optional<Integer> sku_D = Optional.of(0);
+		
+		ResponseDetail response=promotionController.fetchFinalPrice(sku_A, sku_B, sku_C, sku_D);
 		Assert.assertEquals(response.getTotalAmount(), 370);
 		
 	}
 	
 	@Test
 	void fetchFinalPriceTest_Four() {
-		ResponseDetail response=promotionController.fetchFinalPrice(3, 5, 1, 1);
+		Optional<Integer> sku_A = Optional.of(3);
+		Optional<Integer> sku_B = Optional.of(5);
+		Optional<Integer> sku_C = Optional.of(1);
+		Optional<Integer> sku_D = Optional.of(1);
+		
+		ResponseDetail response=promotionController.fetchFinalPrice(sku_A, sku_B, sku_C, sku_D);
+		System.out.println(response.getTotalAmount());
 		Assert.assertEquals(response.getTotalAmount(), 280);
 		
 	}
 	
 	@Test
 	void fetchFinalPriceTest_Five() {
-		ResponseDetail response=promotionController.fetchFinalPrice(1, 1, 1, 1);
+		Optional<Integer> sku_A = Optional.of(1);
+		Optional<Integer> sku_B = Optional.of(1);
+		Optional<Integer> sku_C = Optional.of(1);
+		Optional<Integer> sku_D = Optional.of(1);
+		
+		ResponseDetail response=promotionController.fetchFinalPrice(sku_A, sku_B, sku_C, sku_D);
 		Assert.assertNotEquals(response.getTotalAmount(), 115);
 		
 	}

@@ -2,6 +2,7 @@ package com.example.promotion.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -39,10 +40,10 @@ public class PromotionController {
 	@GetMapping("/findPrice")
 	@ResponseBody
 	public ResponseDetail fetchFinalPrice(
-			@RequestParam(name="skuA", defaultValue = "0") int quantityofA,
-			@RequestParam(name="skuB", defaultValue = "0") int quantityofB,
-			@RequestParam(name="skuC", defaultValue = "0") int quantityofC,
-			@RequestParam(name="skuD", defaultValue = "0") int quantityofD) {
+			@RequestParam(name="skuA", defaultValue = "0") Optional<Integer> quantityofA,
+			@RequestParam(name="skuB", defaultValue = "0") Optional<Integer> quantityofB,
+			@RequestParam(name="skuC", defaultValue = "0") Optional<Integer> quantityofC,
+			@RequestParam(name="skuD", defaultValue = "0") Optional<Integer> quantityofD) {
 		ResponseDetail response=null;
 		List<SKU> skudetails = null;
 		
@@ -52,28 +53,28 @@ public class PromotionController {
 			RequestDetail request = new RequestDetail();
 			skudetails=new ArrayList<>();
 			
-			if(quantityofA>0) {
+			if(quantityofA.isPresent() && quantityofA.get()>0) {
 				SKU skuA=new SKU();
 				skuA.setSKU_Id("A");
-				skuA.setSKU_Unit(quantityofA);
+				skuA.setSKU_Unit(quantityofA.get());
 				skudetails.add(skuA);
 			}
-			if(quantityofB>0) {
+			if(quantityofB.isPresent() && quantityofB.get()>0) {
 				SKU skuB=new SKU();
 				skuB.setSKU_Id("B");
-				skuB.setSKU_Unit(quantityofB);
+				skuB.setSKU_Unit(quantityofB.get());
 				skudetails.add(skuB);
 			}
-			if(quantityofC>0) {
+			if(quantityofC.isPresent() && quantityofC.get()>0) {
 				SKU skuC=new SKU();
 				skuC.setSKU_Id("C");
-				skuC.setSKU_Unit(quantityofC);
+				skuC.setSKU_Unit(quantityofC.get());
 				skudetails.add(skuC);
 			}
-			if(quantityofD>0) {
+			if(quantityofD.isPresent() && quantityofD.get()>0) {
 				SKU skuD=new SKU();
 				skuD.setSKU_Id("D");
-				skuD.setSKU_Unit(quantityofD);
+				skuD.setSKU_Unit(quantityofD.get());
 				skudetails.add(skuD);
 			}
 			request.setSKUDetails(skudetails);
