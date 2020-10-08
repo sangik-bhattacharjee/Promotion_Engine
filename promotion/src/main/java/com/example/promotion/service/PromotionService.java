@@ -1,5 +1,6 @@
 package com.example.promotion.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.example.promotion.helper.RequestDetail;
@@ -8,12 +9,34 @@ import com.example.promotion.helper.ResponseDetail;
 @Component
 public class PromotionService {
 	
+	@Value("${promotion.properties.activePromotions_3A}")
+	int activePromotions_3A;
+	
+	@Value("${promotion.properties.activePromotions_2B}")
+	int activePromotions_2B;
+	
+	@Value("${promotion.properties.activePromotions_CD}")
+	int activePromotions_CD;
+	
+	@Value("${promotion.properties.unitPriceofA}")
+	int unitPriceofA;
+	
+	@Value("${promotion.properties.unitPriceofB}")
+	int unitPriceofB;
+	
+	@Value("${promotion.properties.unitPriceofC}")
+	int unitPriceofC;
+	
+	@Value("${promotion.properties.unitPriceofD}")
+	int unitPriceofD;
+	
+	
 	public ResponseDetail fetchFinalPriceOfProducts(RequestDetail requestDetail) {
 		ResponseDetail response = new ResponseDetail();
 		int finalAmount=0;
 		int totalamount=0;
 		
-		int activePromotions_3A=130;
+		
 		int activePromotions_2B=45;
 		int activePromotions_CD=30;
 		int unitPriceofA=50;

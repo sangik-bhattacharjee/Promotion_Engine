@@ -4,17 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,7 +42,6 @@ public class PromotionController {
 		
 		try {
 			
-			System.out.println("Values of A :: "+quantityofA+", values of B :: "+quantityofB+", values of C ::: "+quantityofC+", values of D :: "+quantityofD);
 			RequestDetail request = new RequestDetail();
 			skudetails=new ArrayList<>();
 			
@@ -79,7 +71,6 @@ public class PromotionController {
 			}
 			request.setSKUDetails(skudetails);
 			response=promotionService.fetchFinalPriceOfProducts(request);
-			
 			
 		}
 		catch(Exception e) {

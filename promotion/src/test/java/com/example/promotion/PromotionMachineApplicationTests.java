@@ -43,7 +43,6 @@ class PromotionMachineApplicationTests {
 		Optional<Integer> sku_D = Optional.of(1);
 		
 		ResponseDetail response=promotionController.fetchFinalPrice(sku_A, sku_B, sku_C, sku_D);
-		System.out.println(response.getTotalAmount());
 		Assert.assertEquals(response.getTotalAmount(), 110);
 		
 	}
@@ -68,7 +67,6 @@ class PromotionMachineApplicationTests {
 		Optional<Integer> sku_D = Optional.of(1);
 		
 		ResponseDetail response=promotionController.fetchFinalPrice(sku_A, sku_B, sku_C, sku_D);
-		System.out.println(response.getTotalAmount());
 		Assert.assertEquals(response.getTotalAmount(), 280);
 		
 	}
